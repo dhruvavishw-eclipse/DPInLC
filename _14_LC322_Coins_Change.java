@@ -1,28 +1,62 @@
 
 public class _14_LC322_Coins_Change {
+    
     public static void main(String [] BKP){
         int coins [] = {1,2,5};
         int amount=11;
 
         int n=coins.length;
-        long dp [][]=new long [n][amount+1];
+        long dp [][]=new long [2][amount+1];
         for(int i=0;i<n;i++){
-            for(int j=0;j<dp[0].length;j++){
-                long skip=(i>0) ? dp[i-1][j] : ((j==0) ? 0: Integer.MAX_VALUE );
-                if(j-coins[i]<0) dp[i][j]=skip;
+            for(int j=0;j<amount+1;j++){
+                long skip=(i>0) ? dp[0][j] : ((j==0) ? 0: Integer.MAX_VALUE );
+                if(j-coins[i]<0) dp[1][j]=skip;
                 else{
-                    long pick = 1 + dp[i][j-coins[i]];
-                    dp[i][j]=Math.min(pick,skip);
+                    long pick = 1 + dp[1][j-coins[i]];
+                    dp[1][j]=Math.min(pick,skip);
                 }
             }
+
+            for(int j=0;j<amount+1;j++){
+            dp[0][j]=dp[1][j];
+          }
+
         }
-      int ans=(int)dp[n-1][amount];
+
+        
+
+      int ans=(int)dp[1][amount];
       if(ans==Integer.MAX_VALUE) ans= -1;
       System.out.println(ans);
         
         
-        // System.out.println(Coins(coins,amount));
+       
     }
+
+
+    // public static void main(String [] BKP){
+    //     int coins [] = {1,2,5};
+    //     int amount=11;
+
+    //     int n=coins.length;
+    //     long dp [][]=new long [n][amount+1];
+    //     for(int i=0;i<n;i++){
+    //         for(int j=0;j<dp[0].length;j++){
+    //             long skip=(i>0) ? dp[i-1][j] : ((j==0) ? 0: Integer.MAX_VALUE );
+    //             if(j-coins[i]<0) dp[i][j]=skip;
+    //             else{
+    //                 long pick = 1 + dp[i][j-coins[i]];
+    //                 dp[i][j]=Math.min(pick,skip);
+    //             }
+    //         }
+    //     }
+    //   int ans=(int)dp[n-1][amount];
+    //   if(ans==Integer.MAX_VALUE) ans= -1;
+    //   System.out.println(ans);
+        
+        
+    //     // System.out.println(Coins(coins,amount));
+    // }
 
     // private static int Coins(int[] coins, int amount) {
     //    long n=coins.length;
