@@ -3,6 +3,9 @@ public class _16LC1143_Longest_Common_Subsequence {
    static int dp [][];
 
     public static void main(String []BKP){
+      // TC =m*n
+      // AS =m*n
+
         String text1 = "abcde";
         String text2 = "ace";
 
