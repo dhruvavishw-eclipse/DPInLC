@@ -11,18 +11,23 @@ public class _16LC1143_Longest_Common_Subsequence {
 
         StringBuilder a=new StringBuilder(text1);
         StringBuilder b=new StringBuilder(text2);
+
          int m=a.length();
          int n=b.length();
          dp=new int [m][n];
+
          for(int i=0;i<m;i++){
             for(int j=0;j<n;j++) {
                 dp[i][j]=-1;
             }
          }
 
-        int ans= lcs(m-1, n-1, a, b);
+        // int ans= lcs(m-1, n-1, a, b);
+        
+        int ans =(lcs2(a, b));
          System.out.println(ans);
     }
+ 
 
    public  static int lcs(int i, int j, StringBuilder a, StringBuilder b) {
         // TODO Auto-generated method stub
@@ -35,4 +40,26 @@ public class _16LC1143_Longest_Common_Subsequence {
             return dp[i][j]=Math.max(lcs(i-1, j, a, b),lcs(i, j-1, a, b));
         }
     }
+    
+
+    static int lcs2(StringBuilder a,StringBuilder b){
+        int m=a.length();
+        int n=b.length();
+
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                int x=(i>=1 && j>=1) ?dp[i-1][j-1] : 0;
+                int y=(i>=1) ? dp[i-1][j] :0;
+                int z=(j>=1) ? dp[i][j-1] : 0;
+
+                if(a.charAt(i)==b.charAt(j))  dp[i][j]=1+x;
+          else{
+                dp[i][j]=Math.max(y,z);
+              }
+            }
+        }
+        return dp[m-1][n-1];
+    }
+  
+
 }
