@@ -60,6 +60,34 @@ public class _16LC1143_Longest_Common_Subsequence {
         }
         return dp[m-1][n-1];
     }
+
+
+    static int lcs3(StringBuilder a,StringBuilder b){
+        int m=a.length();
+        int n=b.length();
+
+        dp=new int[2][n+1]; // Because we use here n+1 so we did not need to write conditions these are written below
+        // we can only use the m+1 && n+1 to skip these condition,this for SPACE OPTIMIZATION so it is only use n+1
+
+        // int x=(i>=1 && j>=1) ?dp[i-1][j-1] : 0;
+        //         int y=(i>=1) ? dp[i-1][j] :0;
+        //         int z=(j>=1) ? dp[i][j-1] : 0;
+
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(a.charAt(i)==b.charAt(j))  dp[1][j]=1+dp[i-1][j-1];
+            else{
+                dp[1][j]=Math.max(dp[0][j],dp[1][j-1]);
+              }
+            }
+
+            for(int j=0;j<=n;j++){
+                dp[0][j]=dp[1][j];
+            }
+        }
+        return dp[1][n];// Here only "n" because we done [n+1] so we have to go to (n+1)-1-> That is "n";
+    }
+
   
 
 }
